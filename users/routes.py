@@ -5,7 +5,7 @@ from core.database import get_db
 from users.schemas import CreateUserRequest
 from users.services import create_user_account
 from core.security import oauth2_scheme
-from users.responses import UserResponse;
+from users.responses import UserResponse
 
 router = APIRouter(
     prefix="/users",
