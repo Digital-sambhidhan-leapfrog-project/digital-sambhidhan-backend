@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from users.routes import router as guest_router, user_router
-from auth.route import router as auth_router
+from auth.routes import router as auth_router
 from core.security import JWTAuth, oauth2_scheme
 from starlette.middleware.authentication import AuthenticationMiddleware
 from users import models

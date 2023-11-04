@@ -6,6 +6,7 @@ from users.schemas import CreateUserRequest
 from users.services import create_user_account
 from core.security import oauth2_scheme
 from users.responses import UserResponse
+from auth.services import send_activation_email
 
 router = APIRouter(
     prefix="/users",
@@ -22,8 +23,9 @@ user_router = APIRouter(
 
 @router.post('', status_code=status.HTTP_201_CREATED)
 async def create_user(data: CreateUserRequest, db: Session = Depends(get_db)):
-    await create_user_account(data=data, db=db)
-    payload = {"message": "User account has been succesfully created."}
+    new_user = await create_user_account(data=data, db=db)
+    await send_activation_email(new_user.email)
+    payload = {"message": "User account has been succesfully created. Please check your email to verify your account."}
     return JSONResponse(content=payload)
 
 

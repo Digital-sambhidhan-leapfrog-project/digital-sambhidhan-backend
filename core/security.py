@@ -54,6 +54,9 @@ def get_current_user(token: str = Depends(oauth2_scheme), db = None):
     user = db.query(UserModel).filter(UserModel.id == user_id).first()
     return user
 
+def generate_activation_token(email):
+    return jwt.encode({"email": email}, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+
 
 class JWTAuth:
     
