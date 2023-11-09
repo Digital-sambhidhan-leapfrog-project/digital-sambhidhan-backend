@@ -1,0 +1,25 @@
+version: "3.8"
+name: "smart-lawyer"
+services:
+  mysql:
+    image: mysql:latest
+    platform: linux/amd64
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smart_lawyer_db
+    logging:
+      driver: none
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      
+  fastapi:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql

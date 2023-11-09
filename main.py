@@ -7,13 +7,21 @@ from starlette.middleware.authentication import AuthenticationMiddleware
 from users import models
 from core.database import engine
 from fastapi import Depends
+import time
+from sqlalchemy.exc import OperationalError
 
 app = FastAPI()
 app.include_router(guest_router)
 app.include_router(user_router)
 app.include_router(auth_router)
 
-models.Base.metadata.create_all(bind=engine)
+while True:
+    try:
+        models.Base.metadata.create_all(bind=engine)
+        break
+    except OperationalError:
+        print("Connection failed. Retrying...")
+        time.sleep(1)
 
 # Add Middleware
 app.add_middleware(AuthenticationMiddleware, backend=JWTAuth())
