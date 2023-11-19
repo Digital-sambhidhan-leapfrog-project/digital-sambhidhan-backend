@@ -8,7 +8,7 @@ class BaseResponse(BaseModel):
         arbitrary_types_allowed = True
 
 
-class UserResponse(BaseModel):
+class UserResponse(BaseResponse):
     id: int
     first_name: str
     last_name: str

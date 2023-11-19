@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from users.routes import router as guest_router, user_router
+from chat.routes import router as chat_router
+from chat.inf import init as chat_init
 from auth.routes import router as auth_router
 from core.security import JWTAuth, oauth2_scheme
 from starlette.middleware.authentication import AuthenticationMiddleware
@@ -14,6 +16,7 @@ app = FastAPI()
 app.include_router(guest_router)
 app.include_router(user_router)
 app.include_router(auth_router)
+app.include_router(chat_router)
 
 while True:
     try:
@@ -25,6 +28,8 @@ while True:
 
 # Add Middleware
 app.add_middleware(AuthenticationMiddleware, backend=JWTAuth())
+
+chat_init()
 
 
 @app.get("/")
