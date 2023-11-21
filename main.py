@@ -11,8 +11,16 @@ from core.database import engine
 from fastapi import Depends
 import time
 from sqlalchemy.exc import OperationalError
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 app.include_router(guest_router)
 app.include_router(user_router)
 app.include_router(auth_router)
