@@ -9,8 +9,9 @@ Backend for Smart-Laywer.
 1. Rename `.env.example` -> `.env`
 
 2. In `.env`:
-    - Insert your email address in `MAIL_USERNAME` and `MAIL_FROM`
+    - Insert your email address in `MAIL_USERNAME` and `MAIL_FROM`.
     - Insert your email password in `MAIL_PASSWORD`.
+    - Insert `HUGGINGFACEHUB_API_TOKEN` and `PINECONE_API_KEY`.
 
     This will setup mail service that will be used to send verification token to registered and unverified users.
 
